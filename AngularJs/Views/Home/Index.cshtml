@@ -1,0 +1,72 @@
+﻿@using System.Web.Optimization
+
+
+@{
+    Layout = null;
+
+}
+<html>
+
+<head>
+    
+    <title>
+
+    </title>
+</head>
+
+
+
+
+
+
+
+<body ng-app="myApp" ng-controller="myController">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+@*<link href="~/Views/Home/Index.css" rel="stylesheet" type="text/css" />*@
+
+    <link rel="stylesheet" href="@Url.Content("∼/Views/Home/Index.css")" type="text/css" />
+    <p id="what" class="trial">
+        what
+    </p>
+    <input type="button"value="Data"  ng-click="getDepartment()"/>
+     
+    <li ng-repeat="p in department" class="trial" id="Test">
+      
+        {{p.Title}}
+
+    </li>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td></td>
+    </tr>
+ 
+    </tbody>
+</table>
+
+
+</body>
+</html>
+<link href="~/Views/Home/Index.css" rel="stylesheet" />
+@section TestingSection {
+    <link href="@Url.Content("~/Styles/Style.css")" rel="stylesheet" type="text/css" />
+    
+    <p> Testing </p>
+}
+<script src="~/Scripts/angular.min.js"></script>
+<script src="~/Scripts/angular-route.js"></script>
+<script src="~/ClientController/app.js"></script>

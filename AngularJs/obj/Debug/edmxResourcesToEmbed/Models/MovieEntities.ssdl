@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MovieStoreModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MovieStore.dbo.Customer' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="BirthDate" />
+    </Key>
+    <Property Name="CustomerId" Type="int" Nullable="false" />
+    <Property Name="MembershipTypeId" Type="tinyint" />
+    <Property Name="IsSubscribedToNewsletter" Type="bit" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BirthDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="GenreId" />
+    </Key>
+    <Property Name="GenreId" Type="tinyint" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MemershipType">
+    <Key>
+      <PropertyRef Name="MembershipTypeId" />
+    </Key>
+    <Property Name="MembershipTypeId" Type="tinyint" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="MovieId" />
+    </Key>
+    <Property Name="MovieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="ImageUrl" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="GenreId" Type="tinyint" />
+  </EntityType>
+  <Association Name="FK_Customer_MemershipType">
+    <End Role="MemershipType" Type="Self.MemershipType" Multiplicity="0..1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemershipType">
+        <PropertyRef Name="MembershipTypeId" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="MembershipTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Genre_Genre">
+    <End Role="Genre" Type="Self.Genre" Multiplicity="1" />
+    <End Role="Genre1" Type="Self.Genre" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="Genre1">
+        <PropertyRef Name="GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MemershipType_MemershipType">
+    <End Role="MemershipType" Type="Self.MemershipType" Multiplicity="1" />
+    <End Role="MemershipType1" Type="Self.MemershipType" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="MemershipType">
+        <PropertyRef Name="MembershipTypeId" />
+      </Principal>
+      <Dependent Role="MemershipType1">
+        <PropertyRef Name="MembershipTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Movie_Genre">
+    <End Role="Genre" Type="Self.Genre" Multiplicity="0..1" />
+    <End Role="Movie" Type="Self.Movie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="Movie">
+        <PropertyRef Name="GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MovieStoreModelStoreContainer">
+    <EntitySet Name="Genre" EntityType="Self.Genre" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MemershipType" EntityType="Self.MemershipType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Customer].[CustomerId] AS [CustomerId], 
+    [Customer].[MembershipTypeId] AS [MembershipTypeId], 
+    [Customer].[IsSubscribedToNewsletter] AS [IsSubscribedToNewsletter], 
+    [Customer].[Name] AS [Name], 
+    [Customer].[BirthDate] AS [BirthDate]
+    FROM [dbo].[Customer] AS [Customer]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Customer_MemershipType" Association="Self.FK_Customer_MemershipType">
+      <End Role="MemershipType" EntitySet="MemershipType" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Genre_Genre" Association="Self.FK_Genre_Genre">
+      <End Role="Genre" EntitySet="Genre" />
+      <End Role="Genre1" EntitySet="Genre" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MemershipType_MemershipType" Association="Self.FK_MemershipType_MemershipType">
+      <End Role="MemershipType" EntitySet="MemershipType" />
+      <End Role="MemershipType1" EntitySet="MemershipType" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Movie_Genre" Association="Self.FK_Movie_Genre">
+      <End Role="Genre" EntitySet="Genre" />
+      <End Role="Movie" EntitySet="Movie" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

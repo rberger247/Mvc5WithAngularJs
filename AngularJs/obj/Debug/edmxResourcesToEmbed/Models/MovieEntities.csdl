@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MovieStoreModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="MovieId" />
+    </Key>
+    <Property Name="MovieId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="ImageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GenreId" Type="Byte" />
+    <NavigationProperty Name="Genre" Relationship="MovieStoreModel.FK_Movie_Genre" FromRole="Movie" ToRole="Genre" />
+  </EntityType>
+  <EntityContainer Name="MovieStoreEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Movies" EntityType="Self.Movie" />
+    <EntitySet Name="Customers" EntityType="MovieStoreModel.Customer" />
+    <EntitySet Name="Genres" EntityType="MovieStoreModel.Genre" />
+    <EntitySet Name="MemershipTypes" EntityType="MovieStoreModel.MemershipType" />
+    <AssociationSet Name="FK_Genre_Genre" Association="MovieStoreModel.FK_Genre_Genre">
+      <End Role="Genre" EntitySet="Genres" />
+      <End Role="Genre1" EntitySet="Genres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_MemershipType" Association="MovieStoreModel.FK_Customer_MemershipType">
+      <End Role="MemershipType" EntitySet="MemershipTypes" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MemershipType_MemershipType" Association="MovieStoreModel.FK_MemershipType_MemershipType">
+      <End Role="MemershipType" EntitySet="MemershipTypes" />
+      <End Role="MemershipType1" EntitySet="MemershipTypes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Movie_Genre" Association="MovieStoreModel.FK_Movie_Genre">
+      <End Role="Genre" EntitySet="Genres" />
+      <End Role="Movie" EntitySet="Movies" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerId" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="BirthDate" />
+    </Key>
+    <Property Name="CustomerId" Type="Int32" Nullable="false" />
+    <Property Name="MembershipTypeId" Type="Byte" />
+    <Property Name="IsSubscribedToNewsletter" Type="Boolean" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="MemershipType" Relationship="MovieStoreModel.FK_Customer_MemershipType" FromRole="Customer" ToRole="MemershipType" />
+  </EntityType>
+  <EntityType Name="Genre">
+    <Key>
+      <PropertyRef Name="GenreId" />
+    </Key>
+    <Property Name="GenreId" Type="Byte" Nullable="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Genre1" Relationship="MovieStoreModel.FK_Genre_Genre" FromRole="Genre" ToRole="Genre1" />
+    <NavigationProperty Name="Genre2" Relationship="MovieStoreModel.FK_Genre_Genre" FromRole="Genre1" ToRole="Genre" />
+    <NavigationProperty Name="Movies" Relationship="MovieStoreModel.FK_Movie_Genre" FromRole="Genre" ToRole="Movie" />
+  </EntityType>
+  <EntityType Name="MemershipType">
+    <Key>
+      <PropertyRef Name="MembershipTypeId" />
+    </Key>
+    <Property Name="MembershipTypeId" Type="Byte" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Customers" Relationship="MovieStoreModel.FK_Customer_MemershipType" FromRole="MemershipType" ToRole="Customer" />
+    <NavigationProperty Name="MemershipType1" Relationship="MovieStoreModel.FK_MemershipType_MemershipType" FromRole="MemershipType" ToRole="MemershipType1" />
+    <NavigationProperty Name="MemershipType2" Relationship="MovieStoreModel.FK_MemershipType_MemershipType" FromRole="MemershipType1" ToRole="MemershipType" />
+  </EntityType>
+  <Association Name="FK_Genre_Genre">
+    <End Type="MovieStoreModel.Genre" Role="Genre" Multiplicity="1" />
+    <End Type="MovieStoreModel.Genre" Role="Genre1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="Genre1">
+        <PropertyRef Name="GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_MemershipType">
+    <End Type="MovieStoreModel.MemershipType" Role="MemershipType" Multiplicity="0..1" />
+    <End Type="MovieStoreModel.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MemershipType">
+        <PropertyRef Name="MembershipTypeId" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="MembershipTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MemershipType_MemershipType">
+    <End Type="MovieStoreModel.MemershipType" Role="MemershipType" Multiplicity="1" />
+    <End Type="MovieStoreModel.MemershipType" Role="MemershipType1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="MemershipType">
+        <PropertyRef Name="MembershipTypeId" />
+      </Principal>
+      <Dependent Role="MemershipType1">
+        <PropertyRef Name="MembershipTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Movie_Genre">
+    <End Type="MovieStoreModel.Genre" Role="Genre" Multiplicity="0..1" />
+    <End Type="MovieStoreModel.Movie" Role="Movie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Genre">
+        <PropertyRef Name="GenreId" />
+      </Principal>
+      <Dependent Role="Movie">
+        <PropertyRef Name="GenreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c486e81ff173474384314f0511aa5e40" Name="Diagram1">
+        <EntityTypeShape EntityType="MovieStoreModel.Movie" Width="1.5" PointX="0.875" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieStoreModel.Customer" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="MovieStoreModel.Genre" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="MovieStoreModel.MemershipType" Width="1.5" PointX="2.75" PointY="3.75" />
+        <AssociationConnector Association="MovieStoreModel.FK_Genre_Genre" ManuallyRouted="true" >
+          <ConnectorPoint PointX="1.2819230769230767" PointY="5.7302864583333326" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="6.3426725260416656" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="6.3426725260416656" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="5.7302864583333326" />
+        </AssociationConnector>
+        <AssociationConnector Association="MovieStoreModel.FK_Customer_MemershipType" />
+        <AssociationConnector Association="MovieStoreModel.FK_MemershipType_MemershipType" />
+        <AssociationConnector Association="MovieStoreModel.FK_Movie_Genre" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
