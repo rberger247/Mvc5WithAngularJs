@@ -16,7 +16,7 @@ namespace AngularJs.Models
     {
         public int CustomerId { get; set; }
         public Nullable<byte> MembershipTypeId { get; set; }
-        public Nullable<bool> IsSubscribedToNewsletter { get; set; }
+        public bool IsSubscribedToNewsletter { get; set; }
         public string Name { get; set; }
         public System.DateTime BirthDate { get; set; }
     

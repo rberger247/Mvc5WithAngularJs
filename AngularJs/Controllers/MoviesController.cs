@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AngularJs.Models;
+using AngularJs.ViewModels;
 
 namespace AngularJs.Controllers
 {
@@ -41,12 +42,34 @@ namespace AngularJs.Controllers
             return View(movie);
         }
 
-        // GET: Movies/Create
-        public ActionResult Create()
+        public ActionResult Add()
         {
-            return View();
+            var membershipTypes = db.MemershipTypes.ToList();
+            var viewModel = new VmCustomer
+            {
+
+                MembershipTypes = membershipTypes
+            };
+
+            return View(viewModel);
         }
 
+        // GET: Movies/CreateNew
+        [HttpPost]
+        public ActionResult CreateNew(Customer customer)
+        {
+            db.Customers.Add(customer);
+            db.SaveChanges();
+            return RedirectToAction("CustomerForm", "Customers");
+        }
+
+        public ActionResult DataTable()
+        {
+            var listOfCustomers = db.Customers.ToList();
+        
+
+            return View(listOfCustomers);
+        }
         // POST: Movies/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -58,7 +81,7 @@ namespace AngularJs.Controllers
             {
                 db.Movies.Add(movie);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Add");
             }
 
             return View(movie);

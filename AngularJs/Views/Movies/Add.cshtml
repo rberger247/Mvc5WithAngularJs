@@ -1,0 +1,53 @@
+﻿@model AngularJs.ViewModels.VmCustomer
+
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Home/_LayoutPage.cshtml";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" /> 
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>  
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<script src="~/Scripts/gridmvc.min.js"></script>
+<h2>Add</h2>
+
+<h1>Grid.MVC</h1>
+<hr />
+
+    @*@Html.Grid(Model).Columns(columns => 
+    {
+        columns.Add(c => c.Id).Titled("Client ID");
+        columns.Add(c => c.Name).Titled("Name").Filterable(true);
+        columns.Add(c => c.Email).Titled("Email");
+    }).WithPaging(3).Sortable(true)
+</div>*@
+
+@using (Html.BeginForm("CreateNew", "Movies"))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.Name)
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control wide" })
+    </div>
+    <div class="form-group">
+    @Html.LabelFor(m => m.Customer.BirthDate)
+    @Html.TextBoxFor(m => m.Customer.BirthDate, new { @class = "form-control" })
+</div>
+
+    <div class="checkbox">
+
+
+        @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter) subscribed to News Letter ?
+
+    </div>
+    <div class="form-group">
+        
+        @Html.LabelFor(m => m.Customer.MembershipTypeId)
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "MembershipTypeId", "Name"), "Please Select a MembershipType", new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId)
+    </div>
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>  
+}

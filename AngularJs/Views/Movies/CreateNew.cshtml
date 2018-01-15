@@ -1,0 +1,34 @@
+﻿@model AngularJs.ViewModels.VmCustomer
+@{
+    ViewBag.Title = "CreateNew";
+    Layout = "~/Views/Home/_LayoutPage.cshtml";
+}
+
+<h2>CreateNew</h2>
+@using (Html.BeginForm("CreateNew", "Movies"))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.Name)
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class = "form-control wide" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.BirthDate)
+        @Html.TextBoxFor(m => m.Customer.BirthDate, new { @class = "form-control" })
+    </div>
+
+    <div class="checkbox">
+
+
+        @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsletter) subscribed to News Letter ?
+
+    </div>
+    <div class="form-group">
+        
+        @Html.LabelFor(m => m.Customer.MembershipTypeId)
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "MembershipTypeId", "Name"), "Please Select a MembershipType", new {@class = "form-control"})
+        @Html.ValidationMessageFor(m => m.Customer.MembershipTypeId)
+    </div>
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>  
+}

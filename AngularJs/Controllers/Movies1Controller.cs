@@ -22,6 +22,7 @@ namespace AngularJs.Controllers
             var movie = db.Movies.ToList();
             return movie;
         }
+        
 
         // GET: api/Movies1/5
         [ResponseType(typeof(Movie))]

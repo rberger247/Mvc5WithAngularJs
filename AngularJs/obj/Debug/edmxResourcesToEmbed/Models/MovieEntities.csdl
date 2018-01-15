@@ -36,8 +36,6 @@
   <EntityType Name="Customer">
     <Key>
       <PropertyRef Name="CustomerId" />
-      <PropertyRef Name="Name" />
-      <PropertyRef Name="BirthDate" />
     </Key>
     <Property Name="CustomerId" Type="Int32" Nullable="false" />
     <Property Name="MembershipTypeId" Type="Byte" />

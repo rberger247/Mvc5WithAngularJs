@@ -1,0 +1,31 @@
+﻿@using GridMvc.Html
+@model IEnumerable<AngularJs.Models.Customer>
+@{
+    ViewBag.Title = "DataTable";
+    Layout = "~/Views/Home/_LayoutPage.cshtml";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+<script src="~/Scripts/gridmvc.min.js"></script>
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<h2>DataTable</h2>
+<h1>Grid.MVC</h1>
+<hr />
+<div>
+    @Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(c => c.Name).Titled("Name").Filterable(true);
+        columns.Add(c => c.MemershipType.MembershipTypeId).Titled("Membership Type").Css("code-cut");
+        columns.Add(c => c.BirthDate).Titled("Birth Date").Css("code-cut");
+        columns.Add(c => c.IsSubscribedToNewsletter).Titled(" Is Subscribed").Filterable(true);
+        columns.Add().Encoded(false)
+            .Sanitized(false).Css("table-hover")
+            .SetWidth(30).RenderValueAs(o => @Html.ActionLink("Edit", "Edit", new { Customerid = o.CustomerId }));
+
+
+
+    }).WithPaging(3).Sortable(true)
+</div>
+
+

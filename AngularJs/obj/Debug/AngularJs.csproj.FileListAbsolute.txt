@@ -38,3 +38,4 @@ C:\src\AngularJsMVC5\AngularJs\bin\System.Web.Http.WebHost.xml
 C:\src\AngularJsMVC5\AngularJs\obj\Debug\AngularJs.csprojResolveAssemblyReference.cache
 C:\src\AngularJsMVC5\AngularJs\obj\Debug\AngularJs.dll
 C:\src\AngularJsMVC5\AngularJs\obj\Debug\AngularJs.pdb
+C:\src\AngularJsMVC5\AngularJs\bin\GridMvc.dll
