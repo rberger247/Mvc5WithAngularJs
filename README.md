@@ -9,3 +9,4 @@
 * uses bundling to load css files for faster load time
 * uses Mvc Html Helper methods to build forms
 * bootstrap for forms 
+* MVC GridView with filtering, pagination and bootstrap styling
